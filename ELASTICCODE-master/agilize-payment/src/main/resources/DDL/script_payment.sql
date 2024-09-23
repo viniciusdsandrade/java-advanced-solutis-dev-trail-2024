@@ -1,0 +1,58 @@
+use payment_agilize;
+
+CREATE TABLE payment (
+  id INT(12) NOT NULL AUTO_INCREMENT,
+  dt_creation timestamp not null,
+  fk_user_creation INT(12) null,
+  fk_application INT(12) not null,
+  amount decimal(10,2) not null,
+  customer_name varchar(300) not null,
+  type_card int(2) not null,
+  card_number varchar(20) not null,
+  name_at_card varchar(30) not null,
+  month_expiration_date_card int(2) not null,
+  year_expiration_date_card int(4) not null,
+  security_code_card varchar(5) not null,
+  brand int(2) not null,
+  merchant_order_id varchar(50) not null,
+  nsu varchar(20) null,
+  tid varchar(40) null,
+  authorization_code varchar(300) null,
+  payment_id varchar(40) null,
+  eci varchar(2) null,
+  status int(2) not null,
+  debit_url_return varchar(300) null,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_user FOREIGN KEY (fk_user_creation) REFERENCES agilize_security.user (id),
+  CONSTRAINT fk_paym_appl FOREIGN KEY (fk_application) REFERENCES agilize_security.application (id)
+);
+
+CREATE TABLE historic_payment (
+  id INT(12) NOT NULL AUTO_INCREMENT,
+  dt_creation timestamp not null,
+  fk_user_creation INT(12) null,
+  fk_application INT(12) not null,
+  fk_payment INT(12) not null,
+  amount decimal(10,2) not null,
+  customer_name varchar(300) not null,
+  type_card int(2) not null,
+  card_number varchar(20) not null,
+  name_at_card varchar(30) not null,
+  month_expiration_date_card int(2) not null,
+  year_expiration_date_card int(4) not null,
+  security_code_card varchar(5) not null,
+  brand int(2) not null,
+  merchant_order_id varchar(50) not null,
+  nsu varchar(20) null,
+  tid varchar(40) null,
+  authorization_code varchar(300) null,
+  payment_id varchar(40) null,
+  eci varchar(2) null,
+  status int(2) not null,
+  debit_url_return varchar(300) null,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_hist_user FOREIGN KEY (fk_user_creation) REFERENCES agilize_security.user (id),
+  CONSTRAINT fk_hist_appl FOREIGN KEY (fk_application) REFERENCES agilize_security.application (id),
+  CONSTRAINT fk_hist_paym FOREIGN KEY (fk_payment) REFERENCES payment (id)
+);
+

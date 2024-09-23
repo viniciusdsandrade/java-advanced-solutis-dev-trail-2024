@@ -1,0 +1,19 @@
+<div id="page-wrapper" ng-class="{'open': toggle}" ng-cloak>
+
+	<!-- Sidebar -->
+	<div id="sidebar-wrapper">
+		<ul class="sidebar">
+			<li class="sidebar-main">
+				<a ng-click="toggleSidebar()">
+					{{getMessage('lbl.menu.header')}} 
+					<span class="menu-icon glyphicon glyphicon-transfer"></span>
+				</a>
+			</li>
+			<div ng-bind-html="renderHtml(menu.navigation)"></div>
+		</ul>		
+		
+		<div ng-bind-html="renderHtml(menu.footer)"></div>
+	</div>
+	<!-- End Sidebar -->
+	
+</div>

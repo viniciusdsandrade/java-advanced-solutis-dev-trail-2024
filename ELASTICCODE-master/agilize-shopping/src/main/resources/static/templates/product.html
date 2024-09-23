@@ -1,0 +1,67 @@
+﻿<div class="container">
+    <div class="details">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-product">
+                    <a ng-click="openPath('/app/shopping/payment')" title="{{getMessage('lnk.title.cart')}}" ng-disabled="cart.getTotalCount() < 1">
+                        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                        <b>{{cart.getTotalCount()}}</b> {{getMessage('lbl.items')}}, <b>{{cart.getTotalPrice() | currency}}</b>
+                        <span ng-show="cart.getTotalCount(product.sku) > 0">
+                    </a>
+                </div>
+                <p class="info-item-cart" ng-show="cart.getTotalCount(product.sku) > 0"><br />{{getMessage('msg.error.item.cart.duplicated')}}</p>
+            </div>     
+        </div>
+           
+        <div class="row">   
+            <div class="col-md-5">
+                <div class="image-product">
+                    <img ng-src="{{renderImage(product.image)}}" class="img-responsive" alt="{{product.name}}" /> 
+                </div> 
+            </div>
+            <div class="col-md-7">
+                <h2>{{product.name}} - <span>{{product.subtitle}}</span></h2>
+                <p class="description-product">{{product.description}}</p> 
+                <h3>{{product.price | currency}}</h3>
+                <div class="button-item">
+                    <button class="btn btn-block add-product" ng-click="cart.addItem(product._id, product.name, -1)">
+                        <i class="fa fa-cart-arrow-down" aria-hidden="true"></i> {{getMessage('lnk.title.add.cart')}}
+                    </button>
+                </div>
+                <div class="button-item">
+                    <button 
+                        class="btn btn-block btn-danger remove-item" 
+                        ng-click="cart.addItem(product._id, product.name, 1)"
+                        ng-disabled="cart.getTotalCount(product.sku) < 1">
+                        <i class="icon-trash icon-white" /> {{getMessage('lnk.title.remove.cart')}}
+                    </button>
+                    <button 
+                        class="btn button-return" 
+                        ng-click="openPath('/app/shopping/store')">
+                        <i class="icon-chevron-left" /> {{getMessage('lnk.title.back.store')}}
+                    </button>
+                </div>
+            </div>   
+        </div> 
+        
+        <div class="list-description">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5>{{getMessage('lbl.features')}}</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped list-info">
+                            <tbody> 
+                                <tr ng-repeat="caract in product.features">
+                                    <td class="icon-table" ng-if="caract.gif" ng-bind-html="renderHtml(caract.gif) | trust"></td> 
+                                    <td class="image-product" ng-if="caract.image"> <img ng-src="{{renderImage(caract.image)}}" class="img-responsive" alt="{{product.name}}" /> </td> 
+                                    <td><strong>{{caract.key}}:</strong></td> 
+                                    <td>{{caract.value}}</td> 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

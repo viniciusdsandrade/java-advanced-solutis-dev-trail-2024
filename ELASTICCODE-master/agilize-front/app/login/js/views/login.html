@@ -1,0 +1,38 @@
+<div class="login-page">
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+        	<img src="img/SB-admin.png" width="150px" />
+			<h1>{{getMessage('page.login.title')}}</h1>
+			<form role="form">
+				<div class="form-content">
+					<div class="form-group">
+						<label>{{getMessage('lbl.cpf')}}</label>
+						<input ng-cpf class="form-control input-underline input-lg" id="login" name="cpf" 
+							ui-mask="999.999.999-99" ng-model="login.user.username" tabindex="1">
+					</div>
+
+					<div class="form-group">
+						<label>{{getMessage('lbl.password')}}</label>
+						<input type="password" ng-model="login.user.password" tabindex="2" class="form-control input-underline input-lg" id="password" 
+							placeholder="{{getMessage('placeholder.password')}}">
+					</div>
+				</div>
+				<a class="btn rounded-btn" ng-click="login.send()">{{getMessage('btn.login')}}</a>				
+				&nbsp;
+				<a type="submit" class="btn rounded-btn" ng-click="login.exit()">{{getMessage('btn.logout')}}</a>
+				
+				<button ng-click="authenticate('facebook')">Sign in with Facebook</button>
+				<button ng-click="authenticate('google')">Sign in with Google</button>
+				
+				XXXX
+				
+				<div  class="col-xs-2">
+                                <a href="auth/google" class="btn btn-danger btn-fab">
+                                    <i class="fa fa-google"></i>
+                                </a>
+                            </div>
+				
+			</form>
+		</div>	
+	</div>
+</div>

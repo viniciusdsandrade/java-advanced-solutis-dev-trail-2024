@@ -1,0 +1,84 @@
+﻿<div class="container">
+    <div class="list-cart">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>{{getMessage('page.shopping.title.ends')}}</h4>
+                <h5>{{getMessage('page.shopping.subtitle.ends')}}</h5>
+            </div>
+        </div>    
+    
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td><b>{{getMessage('lbl.item')}}</b></td>
+                                <td class="tdCenter"><b>{{getMessage('lbl.amount')}}</b></td>
+                                <td class="tdRight"><b>{{getMessage('lbl.price')}}</b></td>
+                            </tr>
+                        </thead>
+
+                        <tr ng-hide="cart.getTotalCount() > 0" >
+                            <td class="tdCenter" colspan="3">
+                                {{getMessage('msg.info.empty.cart')}}
+                            </td>
+                        </tr>
+
+                        <!-- cart items -->
+                        <tr ng-repeat="item in cart.getShoppingItems() | orderBy:'name'">
+                            <td>{{item.name}}</td>
+                            <td class="tdCenter">
+                              	<div class="input-append">
+                                	<input class="selection-amount text-center" type="span" ng-model="item.amountSelecteds" />
+	                                <button class="add-iten-cart" type="button" ng-click="cart.addItem(item._id, item.name, -1)">
+	                                	<i class="fa fa-plus" aria-hidden="true"></i>
+	                                </button>
+	                                <button  class="inverse-iten-cart" ng-click="cart.addItem(item._id, item.name, +1)">
+	                                	<i class="fa fa-minus" aria-hidden="true"></i>
+	                                </button>
+	                                <button class="tdCenter remove-iten-cart" title="{{getMessage('lnk.title.remove.cart')}}">
+	                                    <a href="" ng-click="cart.removeAllItem(item._id)" >
+	                                        <i class="fa fa-times" aria-hidden="true"></i>
+	                                    </a>    
+	                                </button>
+                              	</div>
+                            </td>
+                            <td class="tdRight">{{cart.getTotalPrice(item._id) | currency}}</td>
+                        </tr>
+
+                        <!-- footer -->
+                        <tr class="ttl-cart">
+                            <td><b>{{getMessage('lbl.total')}}</b></td>
+                            <td class="tdCenter"><b>{{cart.getTotalCount()}}</b></td>
+                            <td class="tdRight"><b>{{cart.getTotalPrice() | currency}}</b></td>
+                        </tr>
+                    </table>
+                </div>
+                <pagination num-pages="numPages" class="pagination-cart" current-page="currentPage" total-rows="cart.getTotalCount()" on-select-page="selectPage(page)"></pagination>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="button-item">
+                    <p class="text-info">
+                        <button class="btn button-return-cart" ng-click="openPath('/app/shopping/store')">
+                            <i class="icon-chevron-left" /> {{getMessage('lnk.title.back.store')}}
+                        </button>
+                        <button class="btn btn-block remove-itens" ng-click="cart.removeAllItem()" ng-disabled="cart.getTotalCount() < 1" >
+                            <i class="icon-trash icon-white" /> {{getMessage('lnk.title.erase.cart')}}
+                        </button>
+                    </p>
+                </div>
+                <div class="button-item">
+                    <p class="text-info">
+                        <button class="btn btn-block cart-finish" ng-click="payment()" ng-disabled="cart.getTotalCount() < 1">
+                            <i class="icon-ok icon-white" /> {{getMessage('lnk.goto.pay')}}
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

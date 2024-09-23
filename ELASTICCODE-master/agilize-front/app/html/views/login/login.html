@@ -1,0 +1,26 @@
+<div class="login-page">
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+        	<img src="img/SB-admin.png" width="150px" class="user-avatar" />
+			<h1>{{getMessage('page.login.title')}}</h1>
+			<form role="form">
+				<div class="form-content">
+					<div class="form-group">
+						<label>{{getMessage('lbl.cpf')}}</label>
+						<input ng-cpf class="form-control input-underline input-lg" id="login" name="cpf" 
+							ui-mask="999.999.999-99" ng-model="login.user.username" tabindex="1">
+					</div>
+
+					<div class="form-group">
+						<label>{{getMessage('lbl.password')}}</label>
+						<input type="password" ng-model="login.user.password" tabindex="2" class="form-control input-underline input-lg" id="password" 
+							placeholder="{{getMessage('placeholder.password')}}">
+					</div>
+				</div>
+				<a class="btn rounded-btn" ng-click="login.send()">{{getMessage('btn.login')}}</a>				
+				&nbsp;
+				<a type="submit" class="btn rounded-btn" ng-click="login.exit()">{{getMessage('btn.logout')}}</a>
+			</form>
+		</div>	
+	</div>
+</div>

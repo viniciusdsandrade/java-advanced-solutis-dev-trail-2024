@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="geoApp">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"/>
+        <link href="images/favicon.png" rel="shortcut icon" type="image/png"/>
+        <title>GeoAgilize</title>
+        <link rel="stylesheet" type="text/css" href="styles/bootstrap-3.3.7.min.css"/>
+        <link rel="stylesheet" type="text/css" href="styles/default.css"/>
+    </head>
+    <body ng-controller="AppController">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" id="geo-menu-toggle" data-toggle="collapse" data-target="#geo-menu">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#!home">GeoAgilize</a>
+                </div>
+                <div class="collapse navbar-collapse" id="souza-menu">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="pages.getClass('local')"><a href="#!locais" ng-click="pages.closeMenu()">Locais</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" style="margin-top: 60px; margin-bottom: 50px;">
+            <div ng-view></div>
+        </div>
+        <div id="loading" style="display: none; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-color: black; z-index: 10000; opacity: 0.8; filter: alpha(opacity=80);">
+            <table style="width: 100%; height: 100%; border: none; vertical-align: middle;">
+                <tr>
+                    <td>
+                        <table style="width: 100%; border: none; vertical-align: middle;">
+                            <tr>
+                                <td style="text-align: center;">
+                                    <img alt="loading" src="images/loading.gif" style="margin: auto;"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div role="dialog" style="margin-top: 55px;" class="modal fade" id="messageErrorModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header alert alert-danger" style="margin-bottom: 0px;">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <p id="messageErrorModalText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="dialog" style="margin-top: 55px;" class="modal fade" id="messageWarningModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header alert alert-warning" style="margin-bottom: 0px;">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <p id="messageWarningModalText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="dialog" style="margin-top: 55px;" class="modal fade" id="messageSuccessModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header alert alert-success" style="margin-bottom: 0px;">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <p id="messageSuccessModalText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="scripts/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="scripts/bootstrap-3.3.7.min.js"></script>
+        <script type="text/javascript" src="scripts/angular-1.6.2.min.js"></script>
+        <script type="text/javascript" src="scripts/angular-route-1.6.2.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtr8tzsHLmCHcEipZu_xUKRyqNm-l3eLg"></script>
+        <script type="text/javascript" src="scripts/default.js"></script>
+        <script type="text/javascript" src="home/scripts/default.js"></script>
+        <script type="text/javascript" src="local/scripts/default.js"></script>
+    </body>
+</html>

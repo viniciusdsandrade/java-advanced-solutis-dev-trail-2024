@@ -1,0 +1,59 @@
+/* Document CSS */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700');
+
+
+body{
+	font-family: 'Roboto Slab';
+}
+
+header{
+	padding: 20px 0px;
+	background: #000;
+	color: #fff;
+}
+
+header p{
+	font-size: 24px;
+}
+
+header a{
+	color: #fff;
+	text-decoration: none;
+}
+
+header a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+
+header a:focus{
+	color: #fff;
+	text-decoration: none;
+}
+
+header h4{
+	font-size: 14px;
+	font-weight: 300;
+	line-height: 18px;
+}
+
+.form-control {
+	height: 45px;
+	border-radius: 2px;
+}
+
+.page-header {
+    border-bottom: 0px none;
+    font-size: 30px;
+	font-weight: bold;
+}
+
+.buttons-payment {
+	float: right;
+	margin-bottom: 50px;
+}
+
+.buttons-payment button {
+	padding: 15px !important;
+}

@@ -1,0 +1,62 @@
+﻿<div class="topo">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{getMessage('page.shopping.title')}}</h1>
+                <h4>{{getMessage('page.shopping.subtitle')}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <input ng-model="search" class="search" placeholder="{{getMessage('lbl.search')}}">
+            </div>
+        </div>
+    </div>
+</div>
+     
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="carrinho">
+                <a ng-click="openPath('/app/shopping/payment')" title="{{getMessage('lnk.title.cart')}}" ng-disabled="cart.getTotalCount() < 1">
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                    <b>{{cart.getTotalCount()}}</b> {{getMessage('lbl.items')}}, <b>{{cart.getTotalPrice() | currency}}</b>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div ng-repeat="product in products.jsonList" class="col-md-3">
+                <div class="product">
+                    <a ng-click="openProduct(product._id)">
+                        <img ng-src="{{renderImage(product.image)}}" class="img-responsive" alt="{{product.name}}" />
+                        <div class="info-product">
+                            <h1>{{product.name}}</h1>
+                            <h3>{{product.subtitle}}</h3>
+                            <h2>{{product.price | currency}}</h2>
+                        </div>
+                        <a class="button-add-cart" ng-click="cart.addItem(product._id, product.name, -1)">
+                        {{getMessage('lnk.title.add.cart')}}
+                        </a>
+                    </a>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <pagination num-pages="numPages" current-page="currentPage" total-rows="products.totalRowsInCachePageable" on-select-page="selectPage(page)"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

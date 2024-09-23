@@ -1,0 +1,105 @@
+<div class="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{getMessage('lbl.welcome')}}</h1>
+                <!-- <h3>Pellentesque posuere est felis, sit fermentum at.</h3> -->
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5><span>1</span>&nbsp;{{getMessage('lbl.detail.account')}}</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p>{{getMessage('lbl.cpf')}} *</p>
+                <input type="text" id="cpf" name="cpf" ng-blur="onFocusCpf();" ng-cpf ui-mask="999.999.999-99" ng-model="user.cpf" tabindex="1">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p>{{getMessage('lbl.password')}} *</p>
+                <input maxlength="8" type="password" style="height: 43px;" placeholder="{{getMessage('lbl.keyup.password')}}" ng-model="user.password" max="8" tabindex="2">
+            </div>
+            <div class="col-md-6">
+                <p>{{getMessage('lbl.confirm')}} *</p>
+                <input maxlength="8" type="password" style="height: 43px;" placeholder="{{getMessage('lbl.keyup.confirm.password')}}" ng-model="user.confirmPassword" max="8" tabindex="3">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h5><span>2</span>&nbsp;{{getMessage('lbl.basic.informations')}}</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>{{getMessage('lbl.name')}} *</p>
+                <input type="text" placeholder="{{getMessage('lbl.keyup.nome')}}" ng-model="user.name" tabindex="4">
+                <!-- <input type="text" placeholder="Digite seu nome completo"> -->
+                <p>{{getMessage('lbl.email')}} *</p>
+                <input type="text" name="email" id="email" placeholder="{{getMessage('lbl.keyup.email')}}" ng-model="user.email"  tabindex="6">
+            </div>
+            <div class="col-md-6">
+                <p>{{getMessage('lbl.birthday')}} *</p>
+                <input type="text" class="form1" ng-model="dateTemporary"
+                       name="birthday" maxlength="10" id="birthday" tabindex="5"
+                       placeholder="{{getMessage('lbl.keyup.dtNascimento')}}"/>
+                <script type="text/javascript">$("#birthday").datepicker({dateFormat: 'dd/mm/yy', maxDate: new Date()});</script>
+                <p>{{getMessage('lbl.phone')}} *</p>
+                <input type="text" placeholder="{{getMessage('lbl.keyup.celular')}}" ng-model="user.phone" phone-dir tabindex="7">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h5><span>3</span>&nbsp;{{getMessage('lbl.complementar.info')}}</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <p class="option-radio radio-right">
+                    <label>{{getMessage('lbl.is.university')}}</label>
+                    <input type="checkbox" ng-model="userAnswer.flgAcademic" tabindex="8"></input>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <p>{{getMessage('lbl.institution')}}</p>
+                <input type="text" placeholder="{{getMessage('lbl.keyup.institution')}}" ng-model="userAnswer.institution"
+                       ng-disabled="!userAnswer.flgAcademic" tabindex="9"></input>
+            </div>
+            <div class="col-md-4">
+                <p>{{getMessage('lbl.course')}}</p>
+                <input type="text" placeholder="{{getMessage('lbl.keyup.course')}}" ng-model="userAnswer.course" tabindex="10"
+                       ng-disabled="!userAnswer.flgAcademic"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="option-radio radio-right">
+                    <label>{{getMessage('lbl.is.work')}}</label>
+                    <input type="checkbox" ng-model="userAnswer.flgWorks" tabindex="11"></input>
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <p class="option-checkbox">
+                    <input type="checkbox" ng-click="policyOfUse(confirm)" ng-model="confirm" ng-change="changeConfirm()" tabindex="12">
+                    {{getMessage('lbl.confirm.creation')}}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input class="send-register" ng-click="createRecord()" type="submit" value="{{getMessage('btn.creation.user.confirm')}}"  tabindex="13">
+            </div>
+        </div>
+    </div>
+</div>

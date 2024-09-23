@@ -1,0 +1,251 @@
+<div class="scrollable">
+	<div class="scrollable-content">
+		<div class="container-fluid">
+		    <!-- Page Heading -->
+		    <div class="row">
+		        <div class="col-lg-12">
+		            <h2 class="page-header">
+		                {{getMessage('page.register.stored.title')}}
+		            </h2>
+		            <bread-crumb-directive title="getMessage('page.register.stored.title')" init="page.init" label="page.label" location="page.location"></bread-crumb-directive>
+		        </div>
+		    </div>
+		    <!-- /.row -->	
+		     <br>
+		     <h3>{{getMessage('lbl.data.stored')}}</h3>
+		     
+		     <div class="row">
+			  <!--  <div class="col-lg-6">
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.image.logo.stored')}} *</label>
+		                    
+		                </fieldset>
+				</div>
+				
+			      <div class="row">
+					<div class="col-lg-12">
+						<button type="submit" class="btn btn-secondary" ng-click="openModalField()">{{getMessage('btn.upload.image')}}</button>
+					</div>
+				</div> -->
+				 <div class="col-lg-6">
+		              
+				</div>
+				<div class="row">
+				    <div class="col-lg-2">
+						<form id="form" method="POST" enctype="multipart/form-data;charset=UTF-8">
+						 				<label>{{getMessage('lbl.image.logo.stored')}} </label>
+										<!-- <h3 class="home-heading">Test File Upload</h3> -->
+										<div id="fileUpload">
+											<file-upload-directive></file-upload-directive>
+										</div>
+						</form>
+					</div>
+				</div>
+			     
+			</div>
+		    
+		    <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.social.reason')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.social.reason')}}" ng-model="store.companyName"
+		                    maxlength="160">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.name.fantasy')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.name.fantasy')}}" ng-model="store.fantasyName"
+		                    maxlength="160">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.cnpj')}} *</label>
+		                    <input class="form-control" ng-model="store.cnpj"
+		                    data-ui-mask="99.999.999/9999-99"
+		                    maxlength="18">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.state.registration')}}</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.state.registration')}}" ng-model="store.stateRegistration"
+		                    maxlength="30">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.complementary.information')}}</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.complementary.information')}}" ng-model="store.complementaryInformation"
+		                    maxlength="400">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.password')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.password')}}" ng-model="store.password"
+		                    maxlength="8">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		    <!-- /.row -->
+		    
+		 	<br>
+		    <h3>{{getMessage('lbl.communication.data.stored')}}</h3>
+		    
+		     <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.commercial.phone')}} *</label>
+		                    <input class="form-control" ng-model="store.commercialPhone"
+		                     data-ui-mask="(99)99999-9999" maxlength="14">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.cell.phone')}}</label>
+		                    <input class="form-control" ng-model="store.cellPhone"
+		                     data-ui-mask="(99)99999-9999" maxlength="14">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.fax')}}</label>
+		                    <input class="form-control" ng-model="store.fax"
+		                    data-ui-mask="(99)99999-9999" maxlength="14">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.email')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.email')}}" ng-model="store.email"
+		                    maxlength="120">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		   <br>
+		   <h3>{{getMessage('lbl.address.stored')}}</h3>
+		    
+		     <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.cep')}} *</label>
+		                    <input class="form-control"  ng-model="store.zipCode"
+		                     data-ui-mask="99.999-999" maxlength="10">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.street')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.street')}}" ng-model="store.street"
+		                    maxlength="100">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.number')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.number')}}" ng-model="store.number"
+		                    maxlength="4">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.complement')}}</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.complement')}}" ng-model="store.complement"
+		                    maxlength="120">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		     <div class="row">
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.reference.point')}}</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.reference.point')}}" ng-model="store.referencePoint"
+		                    maxlength="160">
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.neighborhood')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.neighborhood')}}" ng-model="store.neighborhood"
+		                    maxlength="120">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		    
+		    <div class="row">
+		        <div class="col-lg-6">
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.uf')}} *</label>
+				                    <select ng-model="selectedName" ng-options="ufItem.id as ufItem.sigla for ufItem in uf.data"/>
+		                </fieldset>
+		           <!--  </form> -->
+		        </div>
+		        <div class="col-lg-6">
+		            <!-- <form role="form"> -->
+		                <fieldset class="form-group">
+		                    <label>{{getMessage('lbl.county')}} *</label>
+		                    <input class="form-control" placeholder="{{getMessage('placeholder.nameCounty')}}" ng-model="store.nameCounty">
+		                </fieldset>
+		            <!-- </form> -->
+		        </div>
+		    </div>
+		
+			<br/>
+		
+		    <div class="row">
+		    	<div style="align:right">
+		    		<button type="button" class="btn btn-primary save" data-ng-click="save();">{{getMessage('btn.save')}}</button>
+		            <button type="submit" class="btn btn-secondary" ng-click="cancel()">{{getMessage('btn.cancel')}}</button>
+		    	</div>
+		    </div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+/target
+.classpath
+.project
+/.settings
+*/src/main/java/META-INF
+*/src/main/webapp/META-INF
+/.recommenders
+/.metadata
+pom.properties
+*/src/main/resources/application.properties

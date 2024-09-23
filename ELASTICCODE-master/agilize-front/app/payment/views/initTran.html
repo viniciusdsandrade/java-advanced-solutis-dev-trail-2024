@@ -1,0 +1,108 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">
+                {{page.title}}
+            </h2>
+            <bread-crumb-directive title="page.title" init="page.init" label="page.label" location="page.location"></bread-crumb-directive>
+        </div>
+    </div>
+    <!-- /.row -->
+    
+    <div class="row">
+    	<div class="col-lg-6">
+        	<fieldset class="form-group">
+            	<label>{{getMessage('lbl.payment.type')}} *</label>
+                <select class="form-control" data-ng-options="item as item.msg for item in typesCardEnum" 
+					ng-model="payment.typeCard" required ng-change="changeTypeCard()">
+					<option value="null">{{getMessage('lbl.general.select')}}</option>
+				</select>
+             </fieldset>
+        </div>
+        <div class="col-lg-6">
+        	<fieldset class="form-group">
+            	<label>{{getMessage('lbl.payment.brand')}} *</label>
+                <select class="form-control" data-ng-options="item.description as item.msg for item in typesBrand" 
+					ng-model="payment.sale.payment.creditCard.brand" required ng-change="">
+					<option value="null">{{getMessage('lbl.general.select')}}</option>
+				</select>
+             </fieldset>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-3">
+            <fieldset class="form-group">
+                <label>{{getMessage('lbl.payment.card.number')}} *</label>
+                <input class="form-control" type="text" maxlength="4" ng-model="cardNumber.one"
+                	oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+        <div class="col-lg-3">
+        	<fieldset class="form-group">
+        		<label>&nbsp;</label>
+            	<input class="form-control" type="text" maxlength="4" ng-model="cardNumber.two"
+            		oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+        <div class="col-lg-3">
+        	<fieldset class="form-group">
+        		<label>&nbsp;</label>
+            	<input class="form-control" type="text" maxlength="4" ng-model="cardNumber.three"
+            		oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+        <div class="col-lg-3">
+        	<fieldset class="form-group">
+        		<label>&nbsp;</label>
+            	<input class="form-control" type="text" maxlength="4" ng-model="cardNumber.four"
+            		oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-3">
+            <fieldset class="form-group">
+                <label>{{getMessage('lbl.payment.date.expiration')}} *</label>
+                <input class="form-control"  type="text" maxlength="2" ng-model="expirationDate.month"
+                	oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+        <div class="col-lg-3">
+        	<fieldset class="form-group">
+        		<label>&nbsp;</label>
+                <input class="form-control" type="text" maxlength="4" ng-model="expirationDate.year"
+                	oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+        <div class="col-lg-6">
+            <fieldset class="form-group">
+                <label>{{getMessage('lbl.payment.security.code')}} *</label>
+                <input class="form-control" type="text" maxlength="3" ng-model="payment.sale.payment.creditCard.securityCode"
+                	oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');">
+            </fieldset>
+        </div>
+    </div>
+    
+    <div class="row">
+    	<div class="col-lg-12">
+            <fieldset class="form-group">
+                <label>{{getMessage('lbl.payment.card.name')}} *</label>
+                <input class="form-control" placeholder="{{getMessage('placeholder.payment.card.name')}}" ng-model="payment.sale.payment.creditCard.holder">
+            </fieldset>
+        </div>
+    </div>
+    
+	<br/>
+
+    <div class="row">
+    	<div style="align:right">
+    		<button type="submit" class="btn btn-secondary" ng-click="executeTran()">{{getMessage('btn.payment')}}</button>
+            <button type="submit" class="btn btn-secondary" ng-click="cancel()">{{getMessage('btn.cancel')}}</button>
+    	</div>
+    </div>
+</div>
+
+

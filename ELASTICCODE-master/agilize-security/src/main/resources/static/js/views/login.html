@@ -1,0 +1,61 @@
+<!-- <div class="background-login"> -->
+<div modify-back-ground url="application.backgroundImage" css="background-login">
+
+
+	<div class="top-content">
+
+		<div class="inner-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text">
+						<h2 class="logo-login">{{application.titleApp}}</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 form-box">
+						<div class="form-top">
+							<div class="form-top-left">
+								<h3>{{getMessage('page.login.title')}}</h3>
+								<!-- <p>Para aproveitar nossas ofertas</p> -->
+							</div>
+							<div class="form-top-right">
+								<i class="fa fa-lock"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<div class="login-form">
+								<div class="form-group">
+									<label class="sr-only" for="form-username">{{getMessage('lbl.cpf')}}</label>
+									<input ng-cpf class="form-username form-control input-login" id="login" name="cpf" ui-mask="999.999.999-99" ng-model="login.user.username" tabindex="1" placeholder="Login">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-password">{{getMessage('lbl.password')}}</label>
+									<input type="password" ng-model="login.user.password" tabindex="2" class="form-password form-control input-login" id="password" 
+										placeholder="Senha">
+								</div>
+								
+								<button class="button-login" ng-click="login.send()">
+									{{getMessage('btn.login')}}
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-6 col-sm-offset-3 social-login">
+						<h3>{{getMessage('lbl.access.with')}}</h3>
+						<div class="social-login-buttons">
+							<form action="/signin/google" method="post">
+								<a class="btn btn-link-2" type="submit">
+									<i class="fa fa-google-plus"></i> {{getMessage('btn.login.google')}}
+								</a>
+								<!-- <button class="btn btn-link-2" type="submit"><i class="fa fa-google-plus"></i> {{getMessage('btn.login.google')}}</button> -->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
