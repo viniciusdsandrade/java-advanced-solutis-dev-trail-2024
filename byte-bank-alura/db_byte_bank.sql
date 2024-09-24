@@ -2,7 +2,6 @@ DROP DATABASE IF EXISTS db_byte_bank;
 CREATE DATABASE IF NOT EXISTS db_byte_bank;
 USE db_byte_bank;
 
-
 CREATE TABLE IF NOT EXISTS cliente
 (
     id    BIGINT UNSIGNED AUTO_INCREMENT,

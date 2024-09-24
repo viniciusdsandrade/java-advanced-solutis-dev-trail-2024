@@ -52,7 +52,6 @@ public class ConnectionFactory {
      */
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
-
     public Connection recuperarConexao() {
         try {
             return getConnection(URL, USER, PASSWORD);

@@ -1,8 +1,10 @@
 package cliente;
 
+import dto.cliente.DadosCadastroCliente;
+
 import java.util.Objects;
 
-public class Cliente {
+public class Cliente implements Cloneable {
 
     private Long id;
     private String nome;
@@ -13,6 +15,24 @@ public class Cliente {
         this.nome = dados.nome();
         this.cpf = dados.cpf();
         this.email = dados.email();
+    }
+
+    // Construtor de cópia
+    public Cliente(Cliente outroCliente) {
+        this.id = outroCliente.id;
+        this.nome = outroCliente.nome;
+        this.cpf = outroCliente.cpf;
+        this.email = outroCliente.email;
+    }
+
+    @Override
+    public Cliente clone() {
+        Cliente clone = null;
+        try {
+            clone = new Cliente(this);
+        } catch (Exception ignore) {
+        }
+        return clone;
     }
 
     public Long getId() {

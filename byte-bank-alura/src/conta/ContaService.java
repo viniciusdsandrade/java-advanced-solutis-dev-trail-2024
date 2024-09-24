@@ -1,6 +1,7 @@
 package conta;
 
 import config.ConnectionFactory;
+import dto.conta.DadosAberturaConta;
 import exception.RegraDeNegocioException;
 
 import java.math.BigDecimal;

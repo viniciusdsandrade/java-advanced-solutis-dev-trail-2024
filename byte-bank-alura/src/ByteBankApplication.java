@@ -1,7 +1,7 @@
-import cliente.DadosCadastroCliente;
+import dto.cliente.DadosCadastroCliente;
 import conta.Conta;
 import conta.ContaService;
-import conta.DadosAberturaConta;
+import dto.conta.DadosAberturaConta;
 import exception.RegraDeNegocioException;
 import java.math.BigDecimal;
 import java.util.Set;

@@ -1,7 +1,8 @@
 package conta;
 
 import cliente.Cliente;
-import cliente.DadosCadastroCliente;
+import dto.conta.DadosAberturaConta;
+import dto.cliente.DadosCadastroCliente;
 
 import java.math.BigDecimal;
 import java.sql.*;

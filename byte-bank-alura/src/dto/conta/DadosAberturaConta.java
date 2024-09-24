@@ -1,7 +1,7 @@
-package conta;
+package dto.conta;
 
 
-import cliente.DadosCadastroCliente;
+import dto.cliente.DadosCadastroCliente;
 
 public record DadosAberturaConta(Integer numero, DadosCadastroCliente dadosCliente) {
 }
