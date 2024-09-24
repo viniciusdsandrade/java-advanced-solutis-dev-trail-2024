@@ -1,4 +1,4 @@
-package cliente;
+package entity;
 
 import dto.cliente.DadosCadastroCliente;
 

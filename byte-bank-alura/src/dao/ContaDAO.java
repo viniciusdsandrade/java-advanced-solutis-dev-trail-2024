@@ -1,8 +1,9 @@
-package conta;
+package dao;
 
-import cliente.Cliente;
+import entity.Cliente;
 import dto.conta.DadosAberturaConta;
 import dto.cliente.DadosCadastroCliente;
+import entity.Conta;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -13,7 +14,7 @@ public class ContaDAO {
 
     private final Connection conn;
 
-    ContaDAO(Connection connection) {
+    public ContaDAO(Connection connection) {
         this.conn = connection;
     }
 

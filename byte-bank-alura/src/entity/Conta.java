@@ -1,6 +1,4 @@
-package conta;
-
-import cliente.Cliente;
+package entity;
 
 import java.math.BigDecimal;
 import java.util.Objects;

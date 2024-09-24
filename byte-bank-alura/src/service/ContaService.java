@@ -1,7 +1,9 @@
-package conta;
+package service;
 
 import config.ConnectionFactory;
+import dao.ContaDAO;
 import dto.conta.DadosAberturaConta;
+import entity.Conta;
 import exception.RegraDeNegocioException;
 
 import java.math.BigDecimal;
