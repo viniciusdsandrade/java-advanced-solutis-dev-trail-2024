@@ -3,6 +3,7 @@ import entity.Conta;
 import service.ContaService;
 import dto.conta.DadosAberturaConta;
 import exception.RegraDeNegocioException;
+
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -61,16 +62,16 @@ public class ByteBankApplication {
     }
 
     private static void abrirConta() {
-        System.out.println("Digite o número da conta:");
+        System.out.print("Digite o número da conta: ");
         int numeroDaConta = lerInt();
 
-        System.out.println("Digite o nome do cliente:");
+        System.out.print("Digite o nome do cliente: ");
         String nome = lerString();
 
-        System.out.println("Digite o cpf do cliente:");
+        System.out.print("Digite o cpf do cliente: ");
         String cpf = lerString();
 
-        System.out.println("Digite o email do cliente:");
+        System.out.print("Digite o email do cliente: ");
         String email = lerString();
 
         service.abrir(new DadosAberturaConta(numeroDaConta, new DadosCadastroCliente(nome, cpf, email)));
@@ -80,7 +81,7 @@ public class ByteBankApplication {
     }
 
     private static void encerrarConta() {
-        System.out.println("Digite o número da conta:");
+        System.out.print("Digite o número da conta: ");
         int numeroDaConta = lerInt();
 
         service.encerrar(numeroDaConta);
@@ -90,7 +91,7 @@ public class ByteBankApplication {
     }
 
     private static void consultarSaldo() {
-        System.out.println("Digite o número da conta:");
+        System.out.print("Digite o número da conta: ");
         int numeroDaConta = lerInt();
         BigDecimal saldo = service.consultarSaldo(numeroDaConta);
         System.out.println("Saldo da conta: " + saldo);
@@ -99,10 +100,10 @@ public class ByteBankApplication {
     }
 
     private static void realizarSaque() {
-        System.out.println("Digite o número da conta:");
+        System.out.print("Digite o número da conta: ");
         int numeroDaConta = lerInt();
 
-        System.out.println("Digite o valor do saque:");
+        System.out.print("Digite o valor do saque: ");
         BigDecimal valor = lerBigDecimal();
 
         service.realizarSaque(numeroDaConta, valor);
@@ -111,10 +112,10 @@ public class ByteBankApplication {
     }
 
     private static void realizarDeposito() {
-        System.out.println("Digite o número da conta:");
+        System.out.print("Digite o número da conta: ");
         int numeroDaConta = lerInt();
 
-        System.out.println("Digite o valor do depósito:");
+        System.out.print("Digite o valor do depósito: ");
         BigDecimal valor = lerBigDecimal();
 
         service.realizarDeposito(numeroDaConta, valor);

@@ -26,6 +26,7 @@ public class Cliente implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Cliente clone() {
         Cliente clone = null;
         try {

@@ -123,4 +123,37 @@ public class ContaDAO {
         }
         return conta;
     }
+
+    public void sacar(Integer numeroDaConta, BigDecimal valor) {
+        String sql = "UPDATE conta SET saldo = saldo - ? WHERE numero = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setBigDecimal(1, valor);
+            ps.setInt(2, numeroDaConta);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void depositar(Integer numeroDaConta, BigDecimal valor) {
+        String sql = "UPDATE conta SET saldo = saldo + ? WHERE numero = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setBigDecimal(1, valor);
+            ps.setInt(2, numeroDaConta);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void encerrar(Integer numeroDaConta) {
+        String sql = "DELETE FROM conta WHERE numero = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, numeroDaConta);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

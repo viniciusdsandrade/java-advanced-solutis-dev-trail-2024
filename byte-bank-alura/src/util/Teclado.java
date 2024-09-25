@@ -1,8 +1,13 @@
 package util;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static java.util.Locale.forLanguageTag;
 
 public class Teclado {
 
@@ -11,7 +16,6 @@ public class Teclado {
     public static int lerInt() {
         while (true) {
             try {
-                System.out.print("Digite um número inteiro: ");
                 return input.nextInt();
             } catch (InputMismatchException e) {
                 System.err.println("Entrada inválida. Digite um número inteiro válido.");
@@ -22,7 +26,6 @@ public class Teclado {
 
     public static String lerString() {
         while (true) {
-            System.out.print("Digite uma string: ");
             String entrada = input.next();
             if (!entrada.isEmpty()) {
                 return entrada;
@@ -35,11 +38,26 @@ public class Teclado {
     public static BigDecimal lerBigDecimal() {
         while (true) {
             try {
-                System.out.print("Digite um valor decimal: ");
-                return input.nextBigDecimal();
+                String entrada = input.next().trim();
+
+                // Formato brasileiro
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols(forLanguageTag("pt-BR"));
+                DecimalFormat formatBR = new DecimalFormat("#,##0.0#", symbols);
+
+                try {
+                    Number number = formatBR.parse(entrada);
+                    return new BigDecimal(number.toString());
+                } catch (ParseException e) {
+                    try {
+                        return new BigDecimal(entrada);
+                    } catch (NumberFormatException ex) {
+                        throw new InputMismatchException("Formato inválido. Use vírgula para decimais ou ponto.");
+                    }
+                }
+
             } catch (InputMismatchException e) {
-                System.err.println("Entrada inválida. Digite um valor decimal válido.");
-                input.next(); // Limpar o buffer do Scanner
+                System.err.println(e.getMessage());
+                input.next(); // Limpa o buffer
             }
         }
     }

@@ -2,6 +2,8 @@ package config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.github.cdimascio.dotenv.Dotenv;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -12,39 +14,54 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 
     /**
-     * Nome de usuário utilizado para acessar o banco de dados.
+     * Pool de conexões reutilizável.
      */
-    private static final String USER = "root";
+    private static final HikariDataSource dataSource;
 
-    /**
-     * Senha padrão para acessar o banco de dados.
-     */
-    private static final String PASSWORD = "GhostSthong567890@";
-
-    /**
-     * Endereço do host onde o banco de dados MySQL está sendo executado.
-     */
-    private static final String HOST = "localhost";
-
-    /**
-     * Porta utilizada para conexão com o banco de dados MySQL.
-     */
-    private static final String PORT = "3307";
-
-    /**
-     * Nome do banco de dados.
-     */
-    private static final String DATABASE = "db_byte_bank";
-
-    /**
-     * URL de conexão com o banco de dados.
-     */
-    private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
-
-    /**
-     * Número máximo de conexões no pool.
-     */
+    // Variáveis de configuração
     private static final int MAX_POOL_SIZE = 10;
+    private static final long CONNECTION_TIMEOUT = 30000; // 30 segundos
+    private static final long IDLE_TIMEOUT = 600000; // 10 minutos
+    private static final long MAX_LIFETIME = 1800000; // 30 minutos
+
+    static {
+        // Carrega as variáveis do arquivo .env
+        Dotenv dotenv = Dotenv.load();
+
+        // Obtém as credenciais do .env para maior segurança
+        String USER = dotenv.get("DB_USER");
+        String PASSWORD = dotenv.get("DB_PASSWORD");
+        String HOST = dotenv.get("DB_HOST");
+        String PORT = dotenv.get("DB_PORT");
+        String DATABASE = dotenv.get("DB_NAME");
+
+        // Adicione logs para verificar se as variáveis estão sendo carregadas corretamente
+        System.out.println("USER: " + USER);
+        System.out.println("PASSWORD: " + PASSWORD);
+        System.out.println("HOST: " + HOST);
+        System.out.println("PORT: " + PORT);
+        System.out.println("DATABASE: " + DATABASE);
+
+        if (USER == null || PASSWORD == null || HOST == null || PORT == null || DATABASE == null) {
+            throw new RuntimeException("Variáveis de ambiente não carregadas corretamente.");
+        }
+
+        String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
+
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(URL);
+        config.setUsername(USER);
+        config.setPassword(PASSWORD);
+        config.setMaximumPoolSize(MAX_POOL_SIZE);
+
+        // Configurações adicionais
+        config.setConnectionTimeout(CONNECTION_TIMEOUT); // 30 segundos para timeout de conexão
+        config.setIdleTimeout(IDLE_TIMEOUT); // 10 minutos antes de liberar conexões inativas
+        config.setMaxLifetime(MAX_LIFETIME); // 30 minutos como tempo de vida máximo de uma conexão no pool
+
+        // Inicializa o pool de conexões
+        dataSource = new HikariDataSource(config);
+    }
 
     /**
      * Retorna uma conexão com o banco de dados a partir do pool de conexões.
@@ -53,24 +70,18 @@ public class ConnectionFactory {
      */
     public Connection recuperarConexao() {
         try {
-            return createDataSource().getConnection();
+            return dataSource.getConnection(); // Reutiliza o pool de conexões existente
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Erro ao recuperar a conexão com o banco de dados", e);
         }
     }
 
     /**
-     * Cria e configura o pool de conexões HikariCP.
-     *
-     * @return O pool de conexões HikariCP configurado.
+     * Metodo para fechar o pool de conexões e liberar recursos quando a aplicação for finalizada.
      */
-    private HikariDataSource createDataSource() {
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(URL);
-        config.setUsername(USER);
-        config.setPassword(PASSWORD);
-        config.setMaximumPoolSize(MAX_POOL_SIZE);
-
-        return new HikariDataSource(config);
+    public static void closePool() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
     }
 }

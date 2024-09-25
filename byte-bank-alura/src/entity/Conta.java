@@ -39,6 +39,10 @@ public class Conta implements Cloneable {
     public void depositar(BigDecimal valor) {
         this.saldo = this.saldo.add(valor);
     }
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
+
     public Integer getNumero() {
         return numero;
     }
@@ -50,6 +54,7 @@ public class Conta implements Cloneable {
     }
 
     @Override
+    @SuppressWarnings("MethodDoesntCallSuperMethod")
     public Conta clone() {
         Conta clone = null;
         try {
