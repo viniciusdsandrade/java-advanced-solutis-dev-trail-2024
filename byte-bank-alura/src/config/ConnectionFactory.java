@@ -1,24 +1,13 @@
 package config;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static java.sql.DriverManager.getConnection;
-
 /**
- * Classe
- * responsável pela criação e gerenciamento de conexões com o banco de dados MySQL.
- * Utiliza o padrão de projeto Singleton para garantir que apenas uma instância de conexão
- * seja criada por vez.
- * <p>
- * Agora, esta classe utiliza o HikariCP para o pool de conexões, melhorando o desempenho e a
- * gestão de recursos.
- * </p>
- *
- * <h3>Exemplo de uso:</h3>
- * <pre>{@code
- * Connection connection = new ConnectionFactory().recuperarConexao();
- * }</pre>
+ * Classe responsável pela criação e gerenciamento de conexões com o banco de dados MySQL.
+ * Utiliza o HikariCP para o pool de conexões, melhorando o desempenho e a gestão de recursos.
  */
 public class ConnectionFactory {
 
@@ -52,11 +41,36 @@ public class ConnectionFactory {
      */
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 
+    /**
+     * Número máximo de conexões no pool.
+     */
+    private static final int MAX_POOL_SIZE = 10;
+
+    /**
+     * Retorna uma conexão com o banco de dados a partir do pool de conexões.
+     *
+     * @return Uma conexão com o banco de dados.
+     */
     public Connection recuperarConexao() {
         try {
-            return getConnection(URL, USER, PASSWORD);
+            return createDataSource().getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Cria e configura o pool de conexões HikariCP.
+     *
+     * @return O pool de conexões HikariCP configurado.
+     */
+    private HikariDataSource createDataSource() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(URL);
+        config.setUsername(USER);
+        config.setPassword(PASSWORD);
+        config.setMaximumPoolSize(MAX_POOL_SIZE);
+
+        return new HikariDataSource(config);
     }
 }
