@@ -7,15 +7,16 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/**
- * Classe responsável pela criação e gerenciamento de conexões com o banco de dados MySQL.
- * Utiliza o HikariCP para o pool de conexões, melhorando o desempenho e a gestão de recursos.
- */
+/// A classe `ConnectionFactory` é responsável pela criação e gerenciamento de conexões com o banco de dados MySQL.
+///
+/// Utiliza o HikariCP, um pool de conexões altamente eficiente, para melhorar o desempenho
+/// e otimizar o uso de recursos ao lidar com múltiplas conexões simultâneas.
 public class ConnectionFactory {
 
-    /**
-     * Pool de conexões reutilizável.
-     */
+    /// Pool de conexões reutilizável.
+    ///
+    /// O pool de conexões é gerido pelo HikariCP, que permite a reutilização de conexões abertas,
+    /// reduzindo o overhead de criar e destruir conexões repetidamente.
     private static final HikariDataSource dataSource;
 
     // Variáveis de configuração
@@ -63,11 +64,14 @@ public class ConnectionFactory {
         dataSource = new HikariDataSource(config);
     }
 
-    /**
-     * Retorna uma conexão com o banco de dados a partir do pool de conexões.
-     *
-     * @return Uma conexão com o banco de dados.
-     */
+    /// Retorna uma conexão com o banco de dados a partir do pool de conexões.
+    ///
+    /// Este metodo é responsável por fornecer uma conexão ativa com o banco de dados MySQL.
+    /// As conexões são obtidas do pool gerido pelo HikariCP, garantindo alta eficiência.
+    /// Caso ocorra algum problema ao recuperar a conexão, uma exceção é lançada.
+    ///
+    /// @return Uma conexão reutilizável com o banco de dados.
+    /// @throws RuntimeException Se ocorrer um erro ao recuperar a conexão.
     public Connection recuperarConexao() {
         try {
             return dataSource.getConnection(); // Reutiliza o pool de conexões existente
@@ -76,9 +80,10 @@ public class ConnectionFactory {
         }
     }
 
-    /**
-     * Metodo para fechar o pool de conexões e liberar recursos quando a aplicação for finalizada.
-     */
+    /// Metodo para fechar o pool de conexões e liberar recursos quando a aplicação for finalizada.
+    ///
+    /// Este metodo deve ser chamado quando a aplicação estiver sendo desligada,
+    /// garantindo que todas as conexões do pool sejam fechadas corretamente e os recursos liberados.
     public static void closePool() {
         if (dataSource != null) {
             dataSource.close();
