@@ -1,0 +1,8 @@
+[libraries]
+guava = "com.google.guava:guava:30.1.1-jre"
+junit = "junit:junit:4.13.2"
+spring_web = "org.springframework.boot:spring-boot-starter-web:2.5.4"
+
+[plugins]
+spring_boot = { id = "org.springframework.boot", version = "2.5.4" }
+spring_dependency_management = { id = "io.spring.dependency-management", version = "1.0.11.RELEASE" }
