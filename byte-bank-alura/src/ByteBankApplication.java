@@ -9,13 +9,13 @@ import java.util.Set;
 
 import static util.Teclado.*;
 
-/// A classe `ByteBankApplication` é a classe principal que controla o fluxo da aplicação ByteBank.
+/// A classe 'ByteBankApplication' é a classe principal que controla o fluxo da aplicação ByteBank.
 ///
 /// Esta aplicação permite listar contas, abrir novas contas, encerrar contas, consultar saldo, realizar saques,
 /// depósitos e transferências entre contas. Todas as operações são realizadas por meio de interação com o usuário.
 public class ByteBankApplication {
 
-    /// Instância do serviço `ContaService`, que gerencia as operações bancárias.
+    /// Instância do serviço 'ContaService', que gerencia as operações bancárias.
     private static final ContaService service = new ContaService();
 
     /// Metodo principal da aplicação.
@@ -74,7 +74,7 @@ public class ByteBankApplication {
 
     /// Lista todas as contas cadastradas no sistema.
     ///
-    /// As contas abertas são obtidas através do serviço `ContaService` e exibidas no console.
+    /// As contas abertas são obtidas através do serviço 'ContaService' e exibidas no console.
     private static void listarContas() {
         System.out.println("Contas cadastradas:");
         Set<Conta> contas = service.listarContasAbertas();
@@ -86,7 +86,7 @@ public class ByteBankApplication {
     /// Realiza a abertura de uma nova conta.
     ///
     /// O usuário insere os dados necessários, como número da conta, nome, CPF e email,
-    /// e o serviço `ContaService` cria a nova conta.
+    /// e o serviço 'ContaService' cria a nova conta.
     private static void abrirConta() {
         String nome, cpf, email;
         int numeroDaConta;
@@ -111,7 +111,7 @@ public class ByteBankApplication {
 
     /// Encerra uma conta existente.
     ///
-    /// O usuário insere o número da conta, e o serviço `ContaService` encerra a conta, desde que não possua saldo.
+    /// O usuário insere o número da conta, e o serviço 'ContaService' encerra a conta, desde que não possua saldo.
     private static void encerrarConta() {
         int numeroDaConta;
 
@@ -141,7 +141,7 @@ public class ByteBankApplication {
 
     /// Realiza um saque de uma conta.
     ///
-    /// O usuário insere o número da conta e o valor a ser sacado, e o serviço `ContaService` processa o saque.
+    /// O usuário insere o número da conta e o valor a ser sacado, e o serviço 'ContaService' processa o saque.
     private static void realizarSaque() {
         BigDecimal valor;
         int numeroDaConta;
@@ -159,7 +159,7 @@ public class ByteBankApplication {
 
     /// Realiza um depósito em uma conta.
     ///
-    /// O usuário insere o número da conta e o valor a ser depositado, e o serviço `ContaService` processa o depósito.
+    /// O usuário insere o número da conta e o valor a ser depositado, e o serviço 'ContaService' processa o depósito.
     private static void realizarDeposito() {
         BigDecimal valor;
         int numeroDaConta;
@@ -179,7 +179,7 @@ public class ByteBankApplication {
     /// Realiza uma transferência entre duas contas.
     ///
     /// O usuário insere o número da conta de origem, o número da conta de destino e o valor da transferência.
-    /// O serviço `ContaService` processa a transferência entre as contas.
+    /// O serviço 'ContaService' processa a transferência entre as contas.
     private static void realizarTransferencia() {
         int numeroContaOrigem, numeroContaDestino;
         BigDecimal valor;

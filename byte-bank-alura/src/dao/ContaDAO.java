@@ -14,9 +14,9 @@ public class ContaDAO {
 
     private final Connection conn;
 
-    /// Construtor da classe `ContaDAO`.
+    /// Construtor da classe 'ContaDAO'.
     ///
-    /// Este metodo constrói um novo objeto `ContaDAO`, recebendo uma conexão
+    /// Este metodo constrói um novo objeto 'ContaDAO', recebendo uma conexão
     /// com o banco de dados para realizar operações de manipulação de contas.
     ///
     /// @param connection Conexão com o banco de dados a ser usada para as operações.

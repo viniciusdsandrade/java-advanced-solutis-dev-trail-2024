@@ -7,7 +7,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-/// A classe `ConnectionFactory` é responsável pela criação e gerenciamento de conexões com o banco de dados MySQL.
+/// A classe 'ConnectionFactory' é responsável pela criação e gerenciamento de conexões com o banco de dados MySQL.
 ///
 /// Utiliza o HikariCP, um pool de conexões altamente eficiente, para melhorar o desempenho
 /// e otimizar o uso de recursos ao lidar com múltiplas conexões simultâneas.

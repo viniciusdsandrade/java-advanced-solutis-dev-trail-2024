@@ -1,7 +1,7 @@
 package exception;
 
 
-/// A classe `RegraDeNegocioException` representa uma exceção personalizada para violações de regras de negócio.
+/// A classe 'RegraDeNegocioException' representa uma exceção personalizada para violações de regras de negócio.
 ///
 /// Esta exceção é utilizada quando uma regra de negócio específica é violada no sistema.
 /// Por exemplo, ela pode ser usada para lançar erros relacionados a operações inválidas em contas bancárias.

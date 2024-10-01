@@ -15,10 +15,10 @@ public class ContaService {
 
     private final ConnectionFactory connection;
 
-    /// Construtor da classe `ContaService`.
+    /// Construtor da classe 'ContaService'.
     ///
     /// Inicializa o serviço de contas com uma fábrica de conexões ao banco de dados.
-    /// A `ConnectionFactory` será usada para criar novas conexões durante as operações.
+    /// A 'ConnectionFactory' será usada para criar novas conexões durante as operações.
     public ContaService() {
         this.connection = new ConnectionFactory();
     }
@@ -26,7 +26,7 @@ public class ContaService {
     /// Lista todas as contas abertas.
     ///
     /// Este metodo retorna um conjunto de todas as contas abertas no sistema,
-    /// utilizando o `ContaDAO` para realizar a consulta no banco de dados.
+    /// utilizando o 'ContaDAO' para realizar a consulta no banco de dados.
     ///
     /// @return Um conjunto de contas abertas.
     public Set<Conta> listarContasAbertas() {

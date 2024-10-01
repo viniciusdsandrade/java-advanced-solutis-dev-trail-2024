@@ -6,7 +6,7 @@ import java.util.Objects;
 import static java.math.BigDecimal.ZERO;
 import static util.ShallowOrDeepCopy.verifyAndCopy;
 
-/// A classe `Conta` representa uma conta bancária com saldo e um titular.
+/// A classe 'Conta' representa uma conta bancária com saldo e um titular.
 ///
 /// Esta classe permite operações de saque, depósito e possui suporte para clonagem de contas,
 /// além de verificar o saldo disponível.
@@ -37,7 +37,7 @@ public class Conta implements Cloneable {
         this.saldo = ZERO;
     }
 
-    /// Construtor de cópia para a classe `Conta`.
+    /// Construtor de cópia para a classe 'Conta'.
     ///
     /// Cria uma cópia de uma conta existente, copiando todos os seus atributos, incluindo o titular.
     ///
@@ -87,7 +87,7 @@ public class Conta implements Cloneable {
         return titular;
     }
 
-    /// Clona uma `Conta`.
+    /// Clona uma 'Conta'.
     ///
     /// Cria uma cópia da conta atual, incluindo o titular. O titular é copiado profundamente.
     ///
@@ -107,7 +107,7 @@ public class Conta implements Cloneable {
     /// Verifica se duas contas são iguais, comparando o número da conta, saldo e titular.
     ///
     /// @param o O objeto a ser comparado com a conta atual.
-    /// @return `true` se as contas forem iguais, `false` caso contrário.
+    /// @return 'true' se as contas forem iguais, 'false' caso contrário.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -138,7 +138,7 @@ public class Conta implements Cloneable {
         return hash;
     }
 
-    /// Converte o objeto `Conta` em uma string JSON formatada.
+    /// Converte o objeto 'Conta' em uma string JSON formatada.
     ///
     /// @return Uma string representando a conta no formato JSON.
     @Override
