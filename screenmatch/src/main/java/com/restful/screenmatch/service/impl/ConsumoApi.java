@@ -1,4 +1,4 @@
-package com.restful.screenmatch.service;
+package com.restful.screenmatch.service.impl;
 
 import org.slf4j.Logger;
 
