@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 ///
 /// @see org.springframework.boot.CommandLineRunner
 /// @see SpringApplication
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.restful.screenmatch")
 public class ScreenmatchApplication implements CommandLineRunner {
 
     /// Metodo principal que inicia a aplicação Spring Boot.
@@ -40,6 +40,6 @@ public class ScreenmatchApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Main main = new Main();
-        main.exibMenu();
+        main.exibMenu();  // Executa o menu que já inclui a nova funcionalidade
     }
 }

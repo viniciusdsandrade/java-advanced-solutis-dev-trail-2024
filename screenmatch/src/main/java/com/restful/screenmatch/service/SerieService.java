@@ -4,6 +4,7 @@ import com.restful.screenmatch.dto.DadosEpisodio;
 import com.restful.screenmatch.dto.DadosSerie;
 import com.restful.screenmatch.dto.DadosTemporada;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /// Interface responsável pela definição de métodos para obtenção de
@@ -53,4 +54,6 @@ public interface SerieService {
     /// @return Um objeto 'DadosEpisodio' com informações detalhadas do episódio.
     /// @throws Exception Caso ocorra algum erro na requisição à API.
     DadosEpisodio obterDadosEpisodio(String nomeSerie, int temporada, int episodio) throws Exception;
+
+    List<DadosEpisodio> obterEpisodiosApartirDeData(String nomeSerie, int temporada, LocalDate data) throws Exception;
 }

@@ -5,8 +5,14 @@ import com.restful.screenmatch.dto.DadosSerie;
 import com.restful.screenmatch.dto.DadosTemporada;
 import com.restful.screenmatch.service.SerieService;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.LocalDate.parse;
+import static java.time.format.DateTimeFormatter.ofPattern;
+import static java.util.stream.Collectors.toList;
 
 /// Implementação da interface 'SerieService', responsável por consumir
 /// uma API externa para obter informações sobre séries, temporadas e episódios.
@@ -36,7 +42,7 @@ public class SerieServiceImpl implements SerieService {
     /// implementados desta classe.
     ///
     /// @param consumoApi Dependência responsável por realizar a requisição HTTP à API externa.
-    /// @param conversor Dependência responsável por converter o JSON da API em objetos Java.
+    /// @param conversor  Dependência responsável por converter o JSON da API em objetos Java.
     public SerieServiceImpl(ConsumoApi consumoApi, ConverteDados conversor) {
         this.consumoApi = consumoApi;
         this.conversor = conversor;
@@ -62,7 +68,7 @@ public class SerieServiceImpl implements SerieService {
     /// o resultado em um objeto 'DadosTemporada'. O processo é repetido até
     /// que o número total de temporadas especificado seja atingido.
     ///
-    /// @param nomeSerie O nome da série.
+    /// @param nomeSerie       O nome da série.
     /// @param totalTemporadas O número total de temporadas a serem consultadas.
     /// @return Uma lista de objetos 'DadosTemporada' com informações das temporadas.
     /// @throws Exception Caso ocorra um erro na requisição ou na conversão dos dados.
@@ -84,12 +90,28 @@ public class SerieServiceImpl implements SerieService {
     ///
     /// @param nomeSerie O nome da série.
     /// @param temporada O número da temporada.
-    /// @param episodio O número do episódio na temporada.
+    /// @param episodio  O número do episódio na temporada.
     /// @return Um objeto 'DadosEpisodio' com informações detalhadas do episódio.
     /// @throws Exception Caso ocorra um erro na requisição ou na conversão dos dados.
     @Override
     public DadosEpisodio obterDadosEpisodio(String nomeSerie, int temporada, int episodio) throws Exception {
         String json = consumoApi.obterDados(ENDERECO + nomeSerie + "&season=" + temporada + "&episode=" + episodio + API_KEY);
         return conversor.obterDados(json, DadosEpisodio.class);
+    }
+
+    /// Metodo para obter episódios de uma temporada a partir de uma data específica
+    @Override
+    public List<DadosEpisodio> obterEpisodiosApartirDeData(String nomeSerie, int temporada, LocalDate data) throws Exception {
+        // Obter todos os episódios da temporada
+        String json = consumoApi.obterDados(ENDERECO + nomeSerie + "&season=" + temporada + API_KEY);
+        DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+
+        // Filtrar episódios a partir da data fornecida
+        DateTimeFormatter formatter = ofPattern("yyyy-MM-dd");
+        return dadosTemporada.episodios().stream()
+                .filter(e ->
+                        parse(e.dataLancamento(), formatter).isAfter(data) ||
+                        parse(e.dataLancamento(), formatter).isEqual(data))
+                .collect(toList());
     }
 }
