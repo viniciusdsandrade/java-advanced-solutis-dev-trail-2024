@@ -40,6 +40,6 @@ public class ScreenmatchApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Main main = new Main();
-        main.exibMenu();  // Executa o menu que já inclui a nova funcionalidade
+        main.exibeMenu();
     }
 }

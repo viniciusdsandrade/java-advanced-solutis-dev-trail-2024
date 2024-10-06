@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import static java.lang.Double.parseDouble;
 import static java.lang.System.in;
 import static java.time.LocalDate.parse;
 import static java.time.format.DateTimeFormatter.ofPattern;
@@ -62,5 +63,20 @@ public class InputValidator {
             }
         }
         return data;
+    }
+
+    /// Metodo para validar e obter um número de ponto flutuante (double)
+    public double obterDouble(String mensagem) {
+        double numero;
+        while (true) {
+            try {
+                System.out.print(mensagem);
+                numero = parseDouble(scanner.nextLine());
+                break;  // Se o número for válido, sai do loop
+            } catch (NumberFormatException e) {
+                System.err.println("Erro: Entrada inválida. Por favor, insira um número decimal.");
+            }
+        }
+        return numero;
     }
 }

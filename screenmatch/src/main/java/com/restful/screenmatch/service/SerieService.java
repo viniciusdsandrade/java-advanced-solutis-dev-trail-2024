@@ -6,6 +6,8 @@ import com.restful.screenmatch.dto.DadosTemporada;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /// Interface responsável pela definição de métodos para obtenção de
 /// informações sobre séries, como dados gerais, temporadas e episódios.
@@ -56,4 +58,10 @@ public interface SerieService {
     DadosEpisodio obterDadosEpisodio(String nomeSerie, int temporada, int episodio) throws Exception;
 
     List<DadosEpisodio> obterEpisodiosApartirDeData(String nomeSerie, int temporada, LocalDate data) throws Exception;
+
+    List<String> obterTop10Episodios(String nomeSerie, int temporada) throws Exception;
+
+    Optional<DadosEpisodio> encontrarQualquerEpisodioComAvaliacao(String nomeSerie, int temporada, double avaliacaoMinima) throws Exception;
+
+    Map<Integer, Double> obterAvaliacoesPorTemporada(String nomeSerie, int totalTemporadas) throws Exception;
 }

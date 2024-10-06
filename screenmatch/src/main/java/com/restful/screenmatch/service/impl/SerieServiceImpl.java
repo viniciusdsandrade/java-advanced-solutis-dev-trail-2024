@@ -7,27 +7,24 @@ import com.restful.screenmatch.service.SerieService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+
+import static java.lang.Double.parseDouble;
 import static java.time.LocalDate.parse;
 import static java.time.format.DateTimeFormatter.ofPattern;
-import static java.util.stream.Collectors.toList;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.*;
 
 /// Implementação da interface 'SerieService', responsável por consumir
 /// uma API externa para obter informações sobre séries, temporadas e episódios.
 ///
 /// Esta classe utiliza duas dependências principais: 'ConsumoApi' para realizar
 /// as requisições à API externa, e 'ConverteDados' para converter o JSON
-/// recebido da API em objetos Java. A API consultada é a OMDb API, e as
-/// informações retornadas são transformadas em objetos 'DadosSerie',
-/// 'DadosTemporada' e 'DadosEpisodio'.
+/// recebido da API em objetos Java.
 ///
 /// @see ConsumoApi
 /// @see ConverteDados
-/// @see DadosSerie
-/// @see DadosTemporada
-/// @see DadosEpisodio
 public class SerieServiceImpl implements SerieService {
 
     private final ConsumoApi consumoApi;
@@ -38,8 +35,7 @@ public class SerieServiceImpl implements SerieService {
     /// Construtor da classe 'SerieServiceImpl'.
     ///
     /// Inicializa os componentes necessários para o consumo da API e
-    /// conversão dos dados retornados, que serão usados nos métodos
-    /// implementados desta classe.
+    /// conversão dos dados retornados.
     ///
     /// @param consumoApi Dependência responsável por realizar a requisição HTTP à API externa.
     /// @param conversor  Dependência responsável por converter o JSON da API em objetos Java.
@@ -99,7 +95,16 @@ public class SerieServiceImpl implements SerieService {
         return conversor.obterDados(json, DadosEpisodio.class);
     }
 
-    /// Metodo para obter episódios de uma temporada a partir de uma data específica
+    /// Obtém os episódios de uma temporada a partir de uma data específica.
+    ///
+    /// O metodo consulta todos os episódios da temporada e filtra aqueles cuja data de lançamento
+    /// seja igual ou posterior à data informada.
+    ///
+    /// @param nomeSerie O nome da série.
+    /// @param temporada O número da temporada.
+    /// @param data      A data a partir da qual os episódios devem ser filtrados.
+    /// @return Uma lista de objetos 'DadosEpisodio' que foram lançados a partir da data especificada.
+    /// @throws Exception Caso ocorra um erro na requisição ou na conversão dos dados.
     @Override
     public List<DadosEpisodio> obterEpisodiosApartirDeData(String nomeSerie, int temporada, LocalDate data) throws Exception {
         // Obter todos os episódios da temporada
@@ -114,4 +119,92 @@ public class SerieServiceImpl implements SerieService {
                         parse(e.dataLancamento(), formatter).isEqual(data))
                 .collect(toList());
     }
+
+    /// Obtém os 10 melhores episódios de uma temporada com base nas avaliações.
+    ///
+    /// O metodo filtra os episódios com avaliações válidas, ordena-os por avaliação de forma decrescente,
+    /// e retorna uma lista com os títulos dos 10 episódios mais bem avaliados.
+    ///
+    /// @param nomeSerie O nome da série.
+    /// @param temporada O número da temporada.
+    /// @return Uma lista com os títulos dos 10 melhores episódios.
+    /// @throws Exception Caso ocorra um erro na requisição ou na conversão dos dados.
+    @Override
+    public List<String> obterTop10Episodios(String nomeSerie, int temporada) throws Exception {
+        // Obter todos os episódios da temporada
+        String json = consumoApi.obterDados(ENDERECO + nomeSerie + "&season=" + temporada + API_KEY);
+        DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+
+        // Filtrar e classificar os episódios com avaliação válida e retornar os 10 melhores
+        return dadosTemporada.episodios().stream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A"))  // Filtrar avaliações válidas
+                .sorted(comparing(DadosEpisodio::avaliacao).reversed())  // Ordenar por avaliação (decrescente)
+                .limit(10)  // Limitar aos 10 melhores
+                .map(e -> e.titulo().toUpperCase())  // Transformar o título em maiúsculas
+                .collect(toList());  // Coletar resultados
+    }
+
+    /// Encontra um episódio de uma temporada com uma avaliação mínima especificada.
+    ///
+    /// O metodo busca qualquer episódio que tenha uma avaliação maior ou igual à avaliação mínima
+    /// informada pelo usuário, utilizando processamento paralelo para maior eficiência.
+    ///
+    /// @param nomeSerie       O nome da série.
+    /// @param temporada       O número da temporada.
+    /// @param avaliacaoMinima A avaliação mínima que o episódio deve ter.
+    /// @return Um 'Optional<DadosEpisodio>' contendo o episódio encontrado, ou vazio se nenhum episódio atender ao critério.
+    /// @throws Exception Caso ocorra um erro na requisição ou na conversão dos dados.
+    @Override
+    public Optional<DadosEpisodio> encontrarQualquerEpisodioComAvaliacao(String nomeSerie, int temporada, double avaliacaoMinima) throws Exception {
+        // Obter todos os episódios da temporada
+        String json = consumoApi.obterDados(ENDERECO + nomeSerie + "&season=" + temporada + API_KEY);
+        DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+
+        // Buscar qualquer episódio com avaliação mínima usando parallelStream e findAny
+        return dadosTemporada.episodios().parallelStream()
+                .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A") && parseDouble(e.avaliacao()) >= avaliacaoMinima)
+                .findAny();
+    }
+
+    /// Obtém a média das avaliações dos episódios por temporada de uma série especificada.
+    ///
+    /// O metodo percorre todas as temporadas da série e calcula a média das avaliações dos episódios
+    /// que possuem uma avaliação válida. As avaliações são filtradas para considerar apenas aquelas
+    /// superiores a 0.0. O resultado é armazenado em um mapa, onde a chave é o número da temporada
+    /// e o valor é a média das avaliações para aquela temporada.
+    ///
+    /// @param nomeSerie       O nome da série.
+    /// @param totalTemporadas O número total de temporadas da série.
+    /// @return Um mapa onde a chave é o número da temporada e o valor é a média das avaliações dos episódios.
+    /// @throws Exception Caso ocorra um erro na requisição ou na conversão dos dados.
+    @Override
+    public Map<Integer, Double> obterAvaliacoesPorTemporada(String nomeSerie, int totalTemporadas) throws Exception {
+        // Inicializa um mapa para armazenar as médias de avaliações por temporada
+        Map<Integer, Double> avaliacoesPorTemporada = new HashMap<>();
+
+        // Loop para percorrer todas as temporadas da série
+        for (int i = 1; i <= totalTemporadas; i++) {
+            // Obter os episódios de cada temporada
+            String json = consumoApi.obterDados(ENDERECO + nomeSerie + "&season=" + i + API_KEY);
+            DadosTemporada dadosTemporada = conversor.obterDados(json, DadosTemporada.class);
+
+            // Filtrar episódios com avaliações válidas (maior que 0)
+            int finalI = i;
+            Map<Integer, Double> mediaPorTemporada = dadosTemporada.episodios().stream()
+                    .filter(e -> !e.avaliacao().equalsIgnoreCase("N/A") && parseDouble(e.avaliacao()) > 0.0)
+                    .collect(groupingBy(
+                            e -> finalI,  // Agrupar por número da temporada (i)
+                            averagingDouble(e -> parseDouble(e.avaliacao())))); // Calcula a média das avaliações
+
+            // Acumular as médias no mapa principal
+            avaliacoesPorTemporada.putAll(mediaPorTemporada);
+        }
+
+        // Exibe as médias de avaliações por temporada
+        System.out.println("Avaliações por temporada:");
+        System.out.println(avaliacoesPorTemporada);
+
+        return avaliacoesPorTemporada;
+    }
+
 }
