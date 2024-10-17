@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import static org.springframework.boot.SpringApplication.run;
 
 
-@SpringBootApplication(scanBasePackages = {"com.mightyjava"})
+@SpringBootApplication
 @EnableBatchProcessing
 @EnableScheduling
 @EnableAsync

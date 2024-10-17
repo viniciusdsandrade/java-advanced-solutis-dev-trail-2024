@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String addUser(Users user) {
+	public Users addUser(Users user) {
 		String message;
 		JSONObject jsonObject = new JSONObject();
 		try {
@@ -48,7 +48,8 @@ public class UserServiceImpl implements UserService {
 		} catch (JSONException e) {
 			System.err.println(e.getMessage());
 		}
-		return jsonObject.toString();
+
+		return user;
 	}
 
 	@Override

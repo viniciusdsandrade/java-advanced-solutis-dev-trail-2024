@@ -68,6 +68,13 @@ VALUES ('ADMIN'),
        ('USER');
 
 -- Inserir usuários
+insert into users (username, password, email, full_name, mobile, role_id)
+values ('Tiago Lopes', '$2a$10$XBQ9jnH3tqdUSqeTRfvrQOFyZsqxPym29nGKrlyhYUUYU7jg9dvMC', 'tlopes1@gmail.com',
+        'Tiago Lopes', '1234567890', 1),
+       ( 'Tiago Santos', '$2a$10$XBQ9jnH3tqdUSqeTRfvrQOFyZsqxPym29nGKrlyhYUUYU7jg9dvMC', 'tlopes2@gmail.com'
+       , 'Tiago Santos', '1234567890'
+       , 1);
+
 INSERT INTO users (username, password, email, full_name, mobile, role_id)
 VALUES ('john_doe', 'password123', 'john.doe@example.com', 'John Doe', '1234567890', 1),
        ('jane_smith', 'securePass456', 'jane.smith@example.com', 'Jane Smith', '0987654321', 2);

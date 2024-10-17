@@ -55,7 +55,9 @@
 											<span class="input-group-addon">
 												<span class="glyphicon glyphicon-lock"></span>
 											</span>
-											<input type="password" class="form-control" name="password" placeholder="Enter Password" />
+											<label>
+												<input type="password" class="form-control" name="password" placeholder="Enter Password" />
+											</label>
 										</div>
 									</div>
 								</div>

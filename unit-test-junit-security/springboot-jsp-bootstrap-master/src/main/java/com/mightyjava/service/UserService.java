@@ -10,7 +10,7 @@ public interface UserService {
 	
 	Users findOne(Long id);
 	
-	String addUser(Users user);
+	Users addUser(Users user);
 	
 	String deleteUser(Long id);
 	
